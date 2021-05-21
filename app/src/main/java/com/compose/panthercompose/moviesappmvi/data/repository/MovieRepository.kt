@@ -21,7 +21,6 @@ class MovieRepository @Inject constructor(
     private val genreDao: GenreDao
 ) {
 
-
     fun getNowShowing(): Flow<List<Movie>> = flow {
         val response = movieApi.getMovies(1)
         if (response.isSuccessful) {
