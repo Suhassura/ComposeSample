@@ -45,7 +45,6 @@ class MovieRepository @Inject constructor(
         emit(emptyList<Movie>())
     }.flowOn(Dispatchers.IO)
 
-
     fun getMyWatchlist(): LiveData<List<Movie>> {
         return moviesDao.getMyWatchlist()
     }
