@@ -10,9 +10,10 @@ import com.compose.panthercompose.moviesappmvi.di.MovieDIGraph
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MovieDetailViewModel(
-    private val movieRepository: MovieRepository = MovieDIGraph.movieRepository
+class MovieDetailViewModel @Inject constructor(
+    private val movieRepository: MovieRepository
 ) : ViewModel() {
 
     val similarMoviesLiveData = MutableLiveData<List<Movie>>()

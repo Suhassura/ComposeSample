@@ -6,11 +6,14 @@ import androidx.lifecycle.viewModelScope
 import com.compose.panthercompose.moviesappmvi.data.models.Movie
 import com.compose.panthercompose.moviesappmvi.data.repository.MoviesLanesRepository
 import com.compose.panthercompose.moviesappmvi.di.MovieDIGraph
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TrendingViewModel(
-    private val moviesLanesRepository: MoviesLanesRepository = MovieDIGraph.moviesLanesRepository
+@HiltViewModel
+class TrendingViewModel @Inject constructor(
+    private val moviesLanesRepository: MoviesLanesRepository
 ) : ViewModel() {
     val trendingMoviesLiveData = MutableLiveData<List<Movie>>()
     val popularMoviesLiveData = MutableLiveData<List<Movie>>()

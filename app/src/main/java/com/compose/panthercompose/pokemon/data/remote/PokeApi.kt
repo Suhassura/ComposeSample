@@ -12,10 +12,10 @@ interface PokeApi {
     suspend fun getPokemonList(
         @Query("limit") limit: Int,
         @Query("offset") offset: Int
-    ): com.compose.panthercompose.pokemon.data.remote.responses.PokemonList
+    ): PokemonList
 
     @GET("pokemon/{name}")
     suspend fun getPokemonInfo(
         @Path("name") name: String
-    ): com.compose.panthercompose.pokemon.data.remote.responses.Pokemon
+    ): Pokemon
 }
