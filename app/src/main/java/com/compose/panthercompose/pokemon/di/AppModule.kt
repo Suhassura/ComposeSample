@@ -1,5 +1,6 @@
 package com.compose.panthercompose.pokemon.di
 
+import com.compose.panthercompose.pokemon.data.remote.PokeApi
 import com.compose.panthercompose.pokemon.repository.PokemonRepository
 import com.compose.panthercompose.pokemon.utils.Constants
 import dagger.Module
@@ -17,16 +18,16 @@ object AppModule {
     @Singleton
     @Provides
     fun providePokemonRepository(
-        api: com.compose.panthercompose.pokemon.data.remote.PokeApi
+        api:PokeApi
     ) = PokemonRepository(api = api)
 
     @Singleton
     @Provides
-    fun providePokeApi(): com.compose.panthercompose.pokemon.data.remote.PokeApi {
+    fun providePokeApi(): PokeApi {
         return Retrofit.Builder()
             .addConverterFactory(GsonConverterFactory.create())
             .baseUrl(Constants.BASE_URL)
             .build()
-            .create(com.compose.panthercompose.pokemon.data.remote.PokeApi::class.java)
+            .create(PokeApi::class.java)
     }
 }

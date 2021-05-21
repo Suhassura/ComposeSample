@@ -53,7 +53,6 @@ import com.google.accompanist.coil.rememberCoilPainter
 @Composable
 fun PokemonListScreen(
     navController: NavController,
-    systemUiController: SystemUiController,
     viewModel: PokemonListViewModel = hiltNavGraphViewModel()
 ) {
     //systemUiController.setStatusBarColor(MaterialTheme.colors.onPrimary)
@@ -187,7 +186,7 @@ fun List(
 //Pokemon List Item
 @Composable
 fun PokedexEntry(
-    entry: com.compose.panthercompose.pokemon.data.models.PokedexListEntry,
+    entry: PokedexListEntry,
     navController: NavController,
     modifier: Modifier = Modifier,
     viewModel: PokemonListViewModel = hiltNavGraphViewModel()

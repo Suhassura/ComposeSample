@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
-import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterHorizontally
@@ -25,7 +24,6 @@ import com.compose.panthercompose.pokemon.presentation.theme.SystemUiController
 @Composable
 fun SplashScreen(
     navController: NavController,
-    systemUiController: SystemUiController,
     viewModel: SplashViewModel = hiltNavGraphViewModel()
 ) {
 

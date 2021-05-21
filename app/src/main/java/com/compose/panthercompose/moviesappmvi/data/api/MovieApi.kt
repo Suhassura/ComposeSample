@@ -40,35 +40,4 @@ interface MovieApi {
 
     @GET("genre/movie/list?")
     suspend fun getGenres(): Response<GenreApiResponse>
-
-    companion object {
-        private const val BASE_URL = "https://api.themoviedb.org/3/"
-
-        operator fun invoke(): MovieApi {
-            val requestInterceptor = Interceptor { chain ->
-
-                val url = chain.request().url()
-                    .newBuilder()
-                    .addQueryParameter("api_key", "852eb333fbdf1f20f7da454df993da34")
-                    .build()
-                val request = chain.request()
-                    .newBuilder()
-                    .url(url)
-                    .build()
-
-                return@Interceptor chain.proceed(request)
-            }
-
-            val okHttpClient = OkHttpClient.Builder()
-                .addInterceptor(requestInterceptor)
-                .build()
-
-            return Retrofit.Builder()
-                .client(okHttpClient)
-                .baseUrl(BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(MovieApi::class.java)
-        }
-    }
 }

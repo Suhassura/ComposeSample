@@ -17,11 +17,8 @@ import com.compose.panthercompose.pokemon.presentation.theme.SystemUiController
 fun DetailsScreen(
     dominantColor: Color,
     pokemonName: String,
-    systemUiController: SystemUiController,
     viewModel: DetailsViewModel = hiltNavGraphViewModel()
 ) {
-
-    //systemUiController.setStatusBarColor(MaterialTheme.colors.onPrimary)
     viewModel.pokemonDetails(pokemonName)
     val defaultDominantColor = MaterialTheme.colors.surface
 

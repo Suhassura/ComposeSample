@@ -4,5 +4,5 @@ data class PokemonList(
     val count: Int,
     val next: String,
     val previous: Any,
-    val results: List<com.compose.panthercompose.pokemon.data.remote.responses.Result>
+    val results: List<Result>
 )

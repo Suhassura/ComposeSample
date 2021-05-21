@@ -7,12 +7,16 @@ import androidx.lifecycle.viewModelScope
 import com.compose.panthercompose.moviesappmvi.data.models.Movie
 import com.compose.panthercompose.moviesappmvi.data.repository.MovieRepository
 import com.compose.panthercompose.moviesappmvi.di.MovieDIGraph
+import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MoviesHomeViewModel(
-    private val movieRepository: MovieRepository = MovieDIGraph.movieRepository
+@HiltViewModel
+class MoviesHomeViewModel @Inject constructor(
+    private val movieRepository: MovieRepository
 ) : ViewModel() {
 
     val nowShowingLiveData = MutableLiveData<List<Movie>>()
@@ -33,7 +37,7 @@ class MoviesHomeViewModel(
         }
     }
 
-    fun fetchMovies(){
+    fun fetchMovies() {
         viewModelScope.launch {
             movieRepository.getNowShowing()
                 .collect { movies ->
