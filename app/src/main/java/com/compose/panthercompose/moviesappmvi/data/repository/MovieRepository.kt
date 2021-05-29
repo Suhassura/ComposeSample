@@ -6,6 +6,8 @@ import com.compose.panthercompose.moviesappmvi.data.db.GenreDao
 import com.compose.panthercompose.moviesappmvi.data.db.MoviesDao
 import com.compose.panthercompose.moviesappmvi.data.models.Genre
 import com.compose.panthercompose.moviesappmvi.data.models.Movie
+import com.compose.panthercompose.moviesappmvi.di.MovieDIGraph
+import com.compose.panthercompose.pokemon.utils.Constants
 import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -25,6 +27,7 @@ class MovieRepository @Inject constructor(
         if (response.isSuccessful) {
             emit(response.body()?.movies ?: emptyList<Movie>())
         } else {
+            println("empty list emitted")
             emit(emptyList<Movie>())
         }
 

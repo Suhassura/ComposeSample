@@ -1,5 +1,9 @@
 package com.compose.panthercompose.pokemon.data.remote.responses
 
+
+import com.google.gson.annotations.SerializedName
+
 data class GenerationV(
-    val blackWhite: com.compose.panthercompose.pokemon.data.remote.responses.BlackWhite
+    @SerializedName("black-white")
+    val blackWhite: BlackWhite
 )

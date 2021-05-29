@@ -36,7 +36,6 @@ fun MovieHomeScreen(moviesHomeInteractionEvents: (MoviesHomeInteractionEvents) -
 
 @Composable
 fun MovieHomeScreenContent(moviesHomeInteractionEvents: (MoviesHomeInteractionEvents) -> Unit) {
-    //TODO dynamic gradient from poster via coil right now It's just getting from local images
     val imageId = remember { mutableStateOf(R.drawable.camelia) }
     val context = LocalContext.current
     val defaultBitmap =
@@ -51,13 +50,13 @@ fun MovieHomeScreenContent(moviesHomeInteractionEvents: (MoviesHomeInteractionEv
             .verticalGradientBackground(dominantColors),
         horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        // use `item` for separate elements like headers
-        // and `items` for lists of identical elements
         item { Spacer(modifier = Modifier.height(30.dp)) }
         item {
             Text(
                 text = "Now Showing",
-                style = typography.h5.copy(fontWeight = FontWeight.ExtraBold),
+                color = Color.Blue,
+                fontFamily = fontFamily,
+                fontWeight = FontWeight.SemiBold,
                 modifier = Modifier.padding(16.dp)
             )
         }
@@ -82,7 +81,6 @@ fun MoviesPager(
             }
         }
         Pager(state = pagerState, modifier = Modifier.height(645.dp)) {
-            Log.d("pager offset", currentPageOffset.toString())
             val movie = movies[page]
             imageId.value = imageIds[pagerState.currentPage]
             val isSelected = pagerState.currentPage == page
@@ -104,7 +102,7 @@ fun MoviesPager(
                 modifier = Modifier.padding(24.dp)
             )
         } else {
-            Column() {
+            Column {
                 Text(
                     text = error ?: "Unknown error",
                     modifier = Modifier,

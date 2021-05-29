@@ -1,7 +1,12 @@
 package com.compose.panthercompose.pokemon.data.remote.responses
 
+
+import com.google.gson.annotations.SerializedName
+
 data class GenerationIv(
-    val diamondPearl: com.compose.panthercompose.pokemon.data.remote.responses.DiamondPearl,
-    val heartGoldSoulSilver: com.compose.panthercompose.pokemon.data.remote.responses.HeartgoldSoulsilver,
-    val platinum: com.compose.panthercompose.pokemon.data.remote.responses.Platinum
+    @SerializedName("diamond-pearl")
+    val diamondPearl: DiamondPearl,
+    @SerializedName("heartgold-soulsilver")
+    val heartgoldSoulsilver: HeartgoldSoulsilver,
+    val platinum: Platinum
 )

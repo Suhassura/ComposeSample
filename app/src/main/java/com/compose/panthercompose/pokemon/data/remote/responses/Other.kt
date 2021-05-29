@@ -1,6 +1,11 @@
 package com.compose.panthercompose.pokemon.data.remote.responses
 
+
+import com.google.gson.annotations.SerializedName
+
 data class Other(
-    val dream_world: com.compose.panthercompose.pokemon.data.remote.responses.DreamWorld,
-    val officialArtwork: com.compose.panthercompose.pokemon.data.remote.responses.OfficialArtwork
+    @SerializedName("dream_world")
+    val dreamWorld: DreamWorld,
+    @SerializedName("official-artwork")
+    val officialArtwork: OfficialArtwork
 )

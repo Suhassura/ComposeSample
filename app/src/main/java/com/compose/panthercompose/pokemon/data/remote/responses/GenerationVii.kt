@@ -1,6 +1,10 @@
 package com.compose.panthercompose.pokemon.data.remote.responses
 
+
+import com.google.gson.annotations.SerializedName
+
 data class GenerationVii(
-    val icons: com.compose.panthercompose.pokemon.data.remote.responses.Icons,
-    val ultraSunUltraMoon: com.compose.panthercompose.pokemon.data.remote.responses.UltraSunUltraMoon
+    val icons: Icons,
+    @SerializedName("ultra-sun-ultra-moon")
+    val ultraSunUltraMoon: UltraSunUltraMoon
 )

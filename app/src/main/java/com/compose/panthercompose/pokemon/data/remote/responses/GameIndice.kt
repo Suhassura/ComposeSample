@@ -1,6 +1,10 @@
 package com.compose.panthercompose.pokemon.data.remote.responses
 
+
+import com.google.gson.annotations.SerializedName
+
 data class GameIndice(
-    val game_index: Int,
-    val version: com.compose.panthercompose.pokemon.data.remote.responses.Version
+    @SerializedName("game_index")
+    val gameIndex: Int,
+    val version: Version
 )

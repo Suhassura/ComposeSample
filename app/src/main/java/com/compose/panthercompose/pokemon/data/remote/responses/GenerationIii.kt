@@ -1,7 +1,12 @@
 package com.compose.panthercompose.pokemon.data.remote.responses
 
+
+import com.google.gson.annotations.SerializedName
+
 data class GenerationIii(
-    val emerald: com.compose.panthercompose.pokemon.data.remote.responses.Emerald,
-    val fireRedLeafGreen: com.compose.panthercompose.pokemon.data.remote.responses.FireredLeafgreen,
-    val rubySapphire: com.compose.panthercompose.pokemon.data.remote.responses.RubySapphire
+    val emerald: Emerald,
+    @SerializedName("firered-leafgreen")
+    val fireredLeafgreen: FireredLeafgreen,
+    @SerializedName("ruby-sapphire")
+    val rubySapphire: RubySapphire
 )
