@@ -6,9 +6,7 @@ import androidx.lifecycle.liveData
 import androidx.lifecycle.viewModelScope
 import com.compose.panthercompose.moviesappmvi.data.models.Movie
 import com.compose.panthercompose.moviesappmvi.data.repository.MovieRepository
-import com.compose.panthercompose.moviesappmvi.di.MovieDIGraph
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

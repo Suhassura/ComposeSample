@@ -1,7 +1,10 @@
 package com.compose.panthercompose.pokemon.data.remote.responses
 
+
+import com.google.gson.annotations.SerializedName
+
 data class GenerationIi(
-    val crystal: com.compose.panthercompose.pokemon.data.remote.responses.Crystal,
-    val gold: com.compose.panthercompose.pokemon.data.remote.responses.Gold,
-    val silver: com.compose.panthercompose.pokemon.data.remote.responses.Silver
+    val crystal: Crystal,
+    val gold: Gold,
+    val silver: Silver
 )

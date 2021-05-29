@@ -2,7 +2,6 @@ package com.compose.panthercompose
 
 import androidx.compose.ui.graphics.Color
 import android.os.Bundle
-import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +13,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
 import com.compose.panthercompose.pokemon.presentation.theme.PantherComposeTheme
-import com.compose.panthercompose.pokemon.presentation.theme.SystemUiController
 import com.compose.panthercompose.pokemon.presentation.ui.details_screen.DetailsScreen
 import com.compose.panthercompose.pokemon.presentation.ui.home_screen.HomeScreen
 import com.compose.panthercompose.pokemon.presentation.ui.pokemon_list.PokemonListScreen
@@ -34,7 +32,6 @@ class MainActivity : AppCompatActivity() {
         setContent {
             PantherComposeTheme {
                 val navController = rememberNavController()
-                val systemUiController = remember { SystemUiController(window = window) }
                 NavHost(
                     navController = navController,
                     startDestination = "splash_screen"
@@ -42,22 +39,19 @@ class MainActivity : AppCompatActivity() {
 
                     composable("splash_screen") {
                         SplashScreen(
-                            navController = navController,
-                            systemUiController = systemUiController
+                            navController = navController
                         )
                     }
 
                     composable("home_screen") {
                         HomeScreen(
-                            navController = navController,
-                            systemUiController = systemUiController
+                            navController = navController
                         )
                     }
 
                     composable("pokemon_home_screen") {
                         PokemonListScreen(
-                            navController = navController,
-                            systemUiController = systemUiController
+                            navController = navController
                         )
                     }
 
@@ -84,7 +78,7 @@ class MainActivity : AppCompatActivity() {
                         DetailsScreen(
                             dominantColor = dominantColor,
                             pokemonName = pokemonName.orDef(),
-                            systemUiController = systemUiController
+                            navController = navController
                         )
                     }
 

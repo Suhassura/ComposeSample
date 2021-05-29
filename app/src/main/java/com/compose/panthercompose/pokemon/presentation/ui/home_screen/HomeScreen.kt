@@ -18,25 +18,22 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import androidx.navigation.NavController
-import com.compose.panthercompose.moviesappmvi.ui.details.MovieDetailActivity
 import com.compose.panthercompose.moviesappmvi.ui.home.MovieHomeScreen
 import com.compose.panthercompose.moviesappmvi.ui.home.MoviesHomeInteractionEvents
 import com.compose.panthercompose.moviesappmvi.ui.home.MoviesHomeViewModel
 import com.compose.panthercompose.moviesappmvi.ui.home.WatchlistScreen
-import com.compose.panthercompose.pokemon.presentation.theme.SystemUiController
 import com.compose.panthercompose.pokemon.presentation.theme.fontFamily
 import com.compose.panthercompose.pokemon.presentation.ui.pokemon_list.PokemonListScreen
 
-@OptIn(ExperimentalFoundationApi::class)
+@ExperimentalFoundationApi
 @Composable
 fun HomeScreen(
-    systemUiController: SystemUiController,
     navController: NavController,
+    viewModel: MoviesHomeViewModel = hiltNavGraphViewModel()
 ) {
     val navType = rememberSaveable { mutableStateOf(MovieNavType.SHOWING) }
-    val viewModel: MoviesHomeViewModel = viewModel()
 
     Scaffold(bottomBar = { MoviesBottomBar(navType) }) {
         Crossfade(targetState = navType) {
@@ -47,8 +44,7 @@ fun HomeScreen(
                     }
                 )
                 MovieNavType.TRENDING -> PokemonListScreen(
-                    navController = navController,
-                    systemUiController = systemUiController
+                    navController = navController
                 )
                 MovieNavType.WATCHLIST -> WatchlistScreen { interacts ->
                     handleInteractionEvents(interacts, viewModel = viewModel)

@@ -1,6 +1,10 @@
 package com.compose.panthercompose.pokemon.data.remote.responses
 
+
+import com.google.gson.annotations.SerializedName
+
 data class Move(
-    val move: com.compose.panthercompose.pokemon.data.remote.responses.MoveX,
-    val version_group_details: List<com.compose.panthercompose.pokemon.data.remote.responses.VersionGroupDetail>
+    val move: MoveX,
+    @SerializedName("version_group_details")
+    val versionGroupDetails: List<VersionGroupDetail>
 )

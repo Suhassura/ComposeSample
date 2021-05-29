@@ -8,6 +8,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.palette.graphics.Palette
+import com.compose.panthercompose.pokemon.data.models.PokedexListEntry
 import com.compose.panthercompose.pokemon.repository.PokemonRepository
 import com.compose.panthercompose.pokemon.utils.Resource
 import com.compose.panthercompose.pokemon.utils.orDef
@@ -22,11 +23,11 @@ class PokemonListViewModel @Inject constructor(
     private val repository: PokemonRepository
 ) : ViewModel() {
 
-    var pokemonList = mutableStateOf<List<com.compose.panthercompose.pokemon.data.models.PokedexListEntry>>(listOf())
+    var pokemonList = mutableStateOf<List<PokedexListEntry>>(listOf())
     var loadError = mutableStateOf("")
     var isLoading = mutableStateOf(false)
 
-    private var cachedPokemonList = listOf<com.compose.panthercompose.pokemon.data.models.PokedexListEntry>()
+    private var cachedPokemonList = listOf<PokedexListEntry>()
     private var isSearchStarted = true
     var isSearching = mutableStateOf(false)
 
@@ -79,7 +80,7 @@ class PokemonListViewModel @Inject constructor(
                         }
                         val url =
                             "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${number}.png"
-                        com.compose.panthercompose.pokemon.data.models.PokedexListEntry(
+                        PokedexListEntry(
                             entry.name.capitalize(
                                 Locale.ROOT
                             ), url, number.toInt()

@@ -1,12 +1,23 @@
 package com.compose.panthercompose.pokemon.data.remote.responses
 
+
+import com.google.gson.annotations.SerializedName
+
 data class Versions(
-    val generationi: com.compose.panthercompose.pokemon.data.remote.responses.GenerationI,
-    val generationii: com.compose.panthercompose.pokemon.data.remote.responses.GenerationIi,
-    val generationiii: com.compose.panthercompose.pokemon.data.remote.responses.GenerationIii,
-    val generationiv: com.compose.panthercompose.pokemon.data.remote.responses.GenerationIv,
-    val generationv: com.compose.panthercompose.pokemon.data.remote.responses.GenerationV,
-    val generationvi: com.compose.panthercompose.pokemon.data.remote.responses.GenerationVi,
-    val generationvii: com.compose.panthercompose.pokemon.data.remote.responses.GenerationVii,
-    val generationviii: com.compose.panthercompose.pokemon.data.remote.responses.GenerationViii
+    @SerializedName("generation-i")
+    val generationI: GenerationI,
+    @SerializedName("generation-ii")
+    val generationIi: GenerationIi,
+    @SerializedName("generation-iii")
+    val generationIii: GenerationIii,
+    @SerializedName("generation-iv")
+    val generationIv: GenerationIv,
+    @SerializedName("generation-v")
+    val generationV: GenerationV,
+    @SerializedName("generation-vi")
+    val generationVi: GenerationVi,
+    @SerializedName("generation-vii")
+    val generationVii: GenerationVii,
+    @SerializedName("generation-viii")
+    val generationViii: GenerationViii
 )

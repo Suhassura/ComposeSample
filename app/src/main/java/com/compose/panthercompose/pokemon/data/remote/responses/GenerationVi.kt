@@ -1,6 +1,11 @@
 package com.compose.panthercompose.pokemon.data.remote.responses
 
+
+import com.google.gson.annotations.SerializedName
+
 data class GenerationVi(
-    val omegaRubyAlphaSapphire: com.compose.panthercompose.pokemon.data.remote.responses.OmegarubyAlphasapphire,
-    val xy: com.compose.panthercompose.pokemon.data.remote.responses.XY
+    @SerializedName("omegaruby-alphasapphire")
+    val omegarubyAlphasapphire: OmegarubyAlphasapphire,
+    @SerializedName("x-y")
+    val xY: XY
 )
