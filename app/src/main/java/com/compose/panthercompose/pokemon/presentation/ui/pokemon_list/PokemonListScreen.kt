@@ -21,7 +21,6 @@ import androidx.compose.ui.Alignment.Companion.CenterHorizontally
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.draw.scale
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.onFocusChanged
@@ -36,24 +35,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import androidx.navigation.compose.navigate
-import coil.ImageLoader
 import coil.request.ImageRequest
 import com.compose.panthercompose.R
 import com.compose.panthercompose.pokemon.data.models.PokedexListEntry
-import com.compose.panthercompose.pokemon.presentation.theme.SystemUiController
 import com.compose.panthercompose.pokemon.presentation.theme.fontFamily
-import com.google.accompanist.coil.CoilImage
-import com.google.accompanist.coil.CoilPainterDefaults
 import com.google.accompanist.coil.rememberCoilPainter
 
 @ExperimentalFoundationApi
 @Composable
 fun PokemonListScreen(
     navController: NavController,
-    viewModel: PokemonListViewModel = hiltNavGraphViewModel()
+    viewModel: PokemonListViewModel = hiltViewModel()
 ) {
     //systemUiController.setStatusBarColor(MaterialTheme.colors.onPrimary)
 
@@ -81,7 +75,7 @@ fun PokemonListScreen(
             ) {
                 viewModel.searchPokemonList(it)
             }
-            Spacer(modifier = Modifier.height(16.dp))
+            Spacer(modifier = Modifier.height(8.dp))
             List(navController = navController)
         }
     }
@@ -139,7 +133,7 @@ fun SearchBar(
 @Composable
 fun List(
     navController: NavController,
-    viewModel: PokemonListViewModel = hiltNavGraphViewModel()
+    viewModel: PokemonListViewModel = hiltViewModel()
 ) {
 
     val pokemonList by remember { viewModel.pokemonList }
@@ -189,7 +183,7 @@ fun PokedexEntry(
     entry: PokedexListEntry,
     navController: NavController,
     modifier: Modifier = Modifier,
-    viewModel: PokemonListViewModel = hiltNavGraphViewModel()
+    viewModel: PokemonListViewModel = hiltViewModel()
 ) {
     val defaultDominantColor = MaterialTheme.colors.surface
     var dominantColor by remember {
@@ -204,8 +198,8 @@ fun PokedexEntry(
                 vertical = 8.dp,
                 horizontal = 16.dp
             )
-            .shadow(5.dp, RoundedCornerShape(10.dp))
-            .clip(RoundedCornerShape(10.dp))
+            .shadow(5.dp, RoundedCornerShape(20.dp, 0.dp, 20.dp, 0.dp))
+            .clip(RoundedCornerShape(20.dp, 0.dp, 20.dp, 0.dp))
             .background(
                 Brush.verticalGradient(
                     listOf(
@@ -271,7 +265,7 @@ fun PokedexEntry(
 @Composable
 fun RetrySection(
     error: String,
-    viewModel: PokemonListViewModel = hiltNavGraphViewModel(),
+    viewModel: PokemonListViewModel = hiltViewModel(),
     onRetry: () -> Unit
 
 ) {
