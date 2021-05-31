@@ -21,7 +21,9 @@ import androidx.compose.ui.res.imageResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.compose.panthercompose.MainActivity
 import com.compose.panthercompose.R
+import com.compose.panthercompose.moviesappmvi.ui.details.MovieDetailActivity
 import com.compose.panthercompose.moviesappmvi.utils.Pager
 import com.compose.panthercompose.moviesappmvi.utils.PagerState
 import com.compose.panthercompose.moviesappmvi.utils.generateDominantColorState

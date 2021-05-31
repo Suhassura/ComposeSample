@@ -23,6 +23,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -31,11 +32,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
 import androidx.navigation.NavController
+import coil.request.ImageRequest
 import com.compose.panthercompose.R
 import com.compose.panthercompose.pokemon.data.remote.responses.Pokemon
 import com.compose.panthercompose.pokemon.data.remote.responses.Type
 import com.compose.panthercompose.pokemon.utils.*
-import com.google.accompanist.coil.CoilImage
+import com.google.accompanist.coil.rememberCoilPainter
 import java.util.*
 import kotlin.math.round
 
@@ -49,7 +51,7 @@ fun DetailsScreen(
     viewModel: DetailsViewModel = hiltNavGraphViewModel()
 ) {
     val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading()) {
-        value = viewModel.getPokemonInfo(pokemonName.toLowerCase())
+        value = viewModel.getPokemonInfo(pokemonName.toLowerCase(Locale.ROOT))
     }.value
 
     Box(
@@ -100,12 +102,18 @@ fun DetailsScreen(
         ) {
             if (pokemonInfo is Resource.Success) {
                 pokemonInfo.data?.sprites?.let {
-                    CoilImage(
-                        data = it.frontDefault,
-                        contentDescription = pokemonInfo.data.name,
-                        fadeIn = true,
+
+                    Image(
+                        painter = rememberCoilPainter(
+                            request = ImageRequest.Builder(LocalContext.current)
+                                .data(it.frontDefault)
+                                .build(),
+                            fadeIn = true
+                        ),
+                        contentDescription =pokemonInfo.data.name,
                         modifier = Modifier
                             .size(pokemonImageSize)
+                            .aspectRatio(1f)
                             .offset(y = topPadding)
                     )
                 }
