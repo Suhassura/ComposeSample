@@ -1,5 +1,6 @@
 package com.compose.panthercompose.pokemon.presentation.ui.home_screen
 
+import android.os.Bundle
 import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.isSystemInDarkTheme
@@ -9,6 +10,7 @@ import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.LibraryAdd
 import androidx.compose.material.icons.outlined.MovieCreation
+import androidx.compose.material.icons.outlined.OtherHouses
 import androidx.compose.material.icons.outlined.Subscriptions
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -18,12 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
-import com.compose.panthercompose.moviesappmvi.ui.home.MovieHomeScreen
-import com.compose.panthercompose.moviesappmvi.ui.home.MoviesHomeInteractionEvents
-import com.compose.panthercompose.moviesappmvi.ui.home.MoviesHomeViewModel
-import com.compose.panthercompose.moviesappmvi.ui.home.WatchlistScreen
+import com.compose.panthercompose.movies.ui.home.*
+import com.compose.panthercompose.movies.ui.trending.MovieTrendingScreen
+import com.compose.panthercompose.movies.ui.watchlist.WatchlistScreen
 import com.compose.panthercompose.pokemon.presentation.theme.fontFamily
 import com.compose.panthercompose.pokemon.presentation.ui.pokemon_list.PokemonListScreen
 
@@ -31,23 +32,27 @@ import com.compose.panthercompose.pokemon.presentation.ui.pokemon_list.PokemonLi
 @Composable
 fun HomeScreen(
     navController: NavController,
-    viewModel: MoviesHomeViewModel = hiltNavGraphViewModel()
+    viewModel: MoviesHomeViewModel = hiltViewModel()
 ) {
-    val navType = rememberSaveable { mutableStateOf(MovieNavType.SHOWING) }
+    val navType = rememberSaveable { mutableStateOf(HomeNavType.SHOWING) }
 
     Scaffold(bottomBar = { MoviesBottomBar(navType) }) {
         Crossfade(targetState = navType) {
             when (it.value) {
-                MovieNavType.SHOWING -> MovieHomeScreen(
+                HomeNavType.SHOWING -> MovieHomeScreen(
                     moviesHomeInteractionEvents = { interacts ->
-                        handleInteractionEvents(interacts, viewModel)
+                        handleInteractionEvents(interacts, viewModel, navController)
                     }
                 )
-                MovieNavType.TRENDING -> PokemonListScreen(
+                HomeNavType.POKEMON -> PokemonListScreen(
                     navController = navController
                 )
-                MovieNavType.WATCHLIST -> WatchlistScreen { interacts ->
-                    handleInteractionEvents(interacts, viewModel = viewModel)
+                HomeNavType.WATCHLIST -> WatchlistScreen { interacts ->
+                    handleInteractionEvents(interacts, viewModel = viewModel, navController)
+                }
+
+                HomeNavType.OTHER -> MovieTrendingScreen { interacts ->
+                    handleInteractionEvents(interacts, viewModel = viewModel, navController)
                 }
             }
         }
@@ -55,7 +60,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun MoviesBottomBar(navType: MutableState<MovieNavType>) {
+fun MoviesBottomBar(navType: MutableState<HomeNavType>) {
     val bottomNavBackground =
         if (isSystemInDarkTheme()) Color.Black else MaterialTheme.colors.onPrimary
 
@@ -72,10 +77,10 @@ fun MoviesBottomBar(navType: MutableState<MovieNavType>) {
                     modifier = Modifier.padding(4.dp)
                 )
             },
-            selected = navType.value == MovieNavType.SHOWING,
-            onClick = { navType.value = MovieNavType.SHOWING },
+            selected = navType.value == HomeNavType.SHOWING,
+            onClick = { navType.value = HomeNavType.SHOWING },
             selectedContentColor = Color.Red,
-            unselectedContentColor = Color.Black,
+            unselectedContentColor = Color.Green,
             label = {
                 Text(
                     text = "Showing",
@@ -92,10 +97,10 @@ fun MoviesBottomBar(navType: MutableState<MovieNavType>) {
                     modifier = Modifier.padding(4.dp)
                 )
             },
-            selected = navType.value == MovieNavType.TRENDING,
-            onClick = { navType.value = MovieNavType.TRENDING },
+            selected = navType.value == HomeNavType.POKEMON,
+            onClick = { navType.value = HomeNavType.POKEMON },
             selectedContentColor = Color.Red,
-            unselectedContentColor = Color.Black,
+            unselectedContentColor = Color.Green,
             label = {
                 Text(
                     text = "Pokemon",
@@ -112,13 +117,34 @@ fun MoviesBottomBar(navType: MutableState<MovieNavType>) {
                     modifier = Modifier.padding(4.dp)
                 )
             },
-            selected = navType.value == MovieNavType.WATCHLIST,
-            onClick = { navType.value = MovieNavType.WATCHLIST },
+            selected = navType.value == HomeNavType.WATCHLIST,
+            onClick = { navType.value = HomeNavType.WATCHLIST },
             selectedContentColor = Color.Red,
-            unselectedContentColor = Color.Black,
+            unselectedContentColor = Color.Green,
             label = {
                 Text(
                     text = "Watchlist",
+                    fontFamily = fontFamily,
+                    fontWeight = FontWeight.SemiBold
+                )
+            }
+        )
+
+        BottomNavigationItem(
+            icon = {
+                Icon(
+                    imageVector = Icons.Outlined.OtherHouses,
+                    contentDescription = null,
+                    modifier = Modifier.padding(4.dp)
+                )
+            },
+            selected = navType.value == HomeNavType.OTHER,
+            onClick = { navType.value = HomeNavType.OTHER },
+            selectedContentColor = Color.Red,
+            unselectedContentColor = Color.Green,
+            label = {
+                Text(
+                    text = "Other",
                     fontFamily = fontFamily,
                     fontWeight = FontWeight.SemiBold
                 )
@@ -129,7 +155,8 @@ fun MoviesBottomBar(navType: MutableState<MovieNavType>) {
 
 fun handleInteractionEvents(
     interactionEvents: MoviesHomeInteractionEvents,
-    viewModel: MoviesHomeViewModel
+    viewModel: MoviesHomeViewModel,
+    navController: NavController
 ) {
     when (interactionEvents) {
         is MoviesHomeInteractionEvents.AddToMyWatchlist -> {
@@ -138,12 +165,18 @@ fun handleInteractionEvents(
         is MoviesHomeInteractionEvents.RemoveFromMyWatchlist -> {
             viewModel.removeFromMyWatchlist(interactionEvents.movie)
         }
-        else -> {
 
+        is MoviesHomeInteractionEvents.OpenMovieDetail -> {
+            navController.currentBackStackEntry?.arguments =
+                Bundle().apply {
+                    putSerializable("movie", interactionEvents.movie)
+                }
+            navController.navigate("movie_details")
         }
+
     }
 }
 
-enum class MovieNavType {
-    SHOWING, TRENDING, WATCHLIST
+enum class HomeNavType {
+    SHOWING, POKEMON, WATCHLIST, OTHER
 }
