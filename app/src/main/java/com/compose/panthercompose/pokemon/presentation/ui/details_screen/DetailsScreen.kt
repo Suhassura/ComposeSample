@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltNavGraphViewModel
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.request.ImageRequest
 import com.compose.panthercompose.R
@@ -48,7 +49,7 @@ fun DetailsScreen(
     navController: NavController,
     topPadding: Dp = 16.dp,
     pokemonImageSize: Dp = 200.dp,
-    viewModel: DetailsViewModel = hiltNavGraphViewModel()
+    viewModel: DetailsViewModel = hiltViewModel()
 ) {
     val pokemonInfo = produceState<Resource<Pokemon>>(initialValue = Resource.Loading()) {
         value = viewModel.getPokemonInfo(pokemonName.toLowerCase(Locale.ROOT))

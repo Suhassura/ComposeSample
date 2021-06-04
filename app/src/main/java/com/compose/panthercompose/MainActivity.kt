@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navArgument
 import androidx.navigation.compose.rememberNavController
+import com.compose.panthercompose.movies.ui.details.MovieDetailContent
 import com.compose.panthercompose.pokemon.presentation.theme.PantherComposeTheme
 import com.compose.panthercompose.pokemon.presentation.ui.details_screen.DetailsScreen
 import com.compose.panthercompose.pokemon.presentation.ui.home_screen.HomeScreen
@@ -46,6 +47,12 @@ class MainActivity : ComponentActivity() {
 
                     composable("home_screen") {
                         HomeScreen(
+                            navController = navController
+                        )
+                    }
+
+                    composable("movie_details") {
+                        MovieDetailContent(
                             navController = navController
                         )
                     }
